@@ -14,12 +14,16 @@ import calendar
 import numpy as np
 import yaml
 from attrdictionary import AttrDict as attributedict
+from pathlib import Path
 
 #############################################################
 ## Load configs parameter
 #############################################################
 
-with open("..configs\main_alberto.yml", "r") as f:
+script_dir = Path(__file__).parent
+config_path = script_dir.parent / "configs" / "main_alberto.yml"
+
+with open( config_path , "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 config = attributedict(config)
