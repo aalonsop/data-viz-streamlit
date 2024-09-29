@@ -32,6 +32,7 @@ if currently == 'cloud':
     with open( pathtoconfig + "main_alberto.yml", "r") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     
+    config = attributedict(config)
     keptfiles = list(config.dashboard.data.cams.keptfiles)
 
     
