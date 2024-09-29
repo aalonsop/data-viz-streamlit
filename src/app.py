@@ -16,9 +16,6 @@ import yaml
 from attrdictionary import AttrDict as attributedict
 import os
 
-print('okoko')
-need = os.environ["CDSAPI_URL"]
-print(need)
 #############################################################
 ## Load configs parameter
 #############################################################
@@ -56,10 +53,6 @@ pmwildfires = pathtofolder + keptfiles[3] + ext
 config = attributedict(config)
 pathtofolder = config.dashboard.data.cams.folder
 keptfiles = list(config.dashboard.data.cams.keptfiles)
-
-st.write('okoko')
-need = os.environ["CDSAPI_URL"]
-st.write(need)
 
 #############################################################
 ## Load data
