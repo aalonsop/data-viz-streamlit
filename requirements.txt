@@ -22,6 +22,7 @@ netCDF4==1.7.1.post2
 numpy==2.1.1
 packaging==24.1
 pandas==2.2.3
+pathlib==1.0.1
 pillow==10.4.0
 plotly==5.24.1
 protobuf==5.28.2
