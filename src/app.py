@@ -23,6 +23,9 @@ from pathlib import Path
 script_dir = Path(__file__).parent
 config_path = script_dir.parent / "configs" / "main_alberto.yml"
 
+print(script_dir)
+print(config_path)
+
 with open( config_path , "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
