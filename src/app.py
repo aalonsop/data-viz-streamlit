@@ -27,7 +27,7 @@ config_path = script_dir.parent / "configs" / "main_alberto.yml"
 with open( config_path , "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
-filenames = os.listdir('.')
+folder_path = os.getcwd()
 pathtofolder = os.path.join(folder_path, 'data')
 
 config = attributedict(config)
