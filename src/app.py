@@ -14,9 +14,14 @@ import calendar
 import numpy as np
 import yaml
 from attrdictionary import AttrDict as attributedict
-from pathlib import Path
 import os
 
+st.write(
+    os.environ["CDSAPI_URL"] == st.secrets["url_cams"],
+    os.environ["CDSAPI_KEY"] == st.secrets["key_cams"]
+)
+
+print(os.environ["CDSAPI_URL"])
 #############################################################
 ## Load configs parameter
 #############################################################
