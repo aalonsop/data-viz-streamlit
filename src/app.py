@@ -21,7 +21,7 @@ import os
 ## Load configs parameter
 #############################################################
 
-currently = 'local'
+currently = 'cloud'
 
 if currently == 'cloud':
 
