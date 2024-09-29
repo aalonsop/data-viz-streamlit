@@ -27,11 +27,13 @@ if currently == 'cloud':
 
     folder_path = os.getcwd()
     pathtofolder = os.path.join(folder_path, 'data/cams/')
+    pathtoconfig = os.path.join(folder_path, 'configs/')
     
-    files = os.listdir(pathtofolder)
-    filenames = sorted([f for f in files if ( f.endswith('nc') ) ])
+    with open( pathtoconfig + "main_alberto.yml", "r") as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
     
-    ext = ''
+    keptfiles = list(config.dashboard.data.cams.keptfiles)
+
     
 else:
     with open("../configs/main_alberto.yml", "r") as f:
@@ -41,7 +43,7 @@ else:
     pathtofolder = config.dashboard.data.cams.folder
     keptfiles = list(config.dashboard.data.cams.keptfiles)
     
-    ext = '.nc'
+ext = '.nc'
 
 dust = pathtofolder + keptfiles[0] + ext
 pm10 = pathtofolder + keptfiles[1] + ext
