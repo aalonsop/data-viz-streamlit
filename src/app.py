@@ -57,9 +57,9 @@ config = attributedict(config)
 pathtofolder = config.dashboard.data.cams.folder
 keptfiles = list(config.dashboard.data.cams.keptfiles)
 
-print('okoko')
+st.write('okoko')
 need = os.environ["CDSAPI_URL"]
-print(need)
+st.write(need)
 
 #############################################################
 ## Load data
