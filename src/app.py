@@ -28,7 +28,7 @@ with open( config_path , "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 folder_path = os.getcwd()
-pathtofolder = os.path.join(folder_path, 'data')
+pathtofolder = os.path.join(folder_path, 'data/')
 
 files = os.listdir(pathtofolder)
 filenames = sorted([f for f in files if ( f.endswith('nc') ) ])
