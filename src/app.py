@@ -15,6 +15,7 @@ import numpy as np
 import yaml
 from attrdictionary import AttrDict as attributedict
 from pathlib import Path
+import os
 
 #############################################################
 ## Load configs parameter
@@ -23,14 +24,14 @@ from pathlib import Path
 script_dir = Path(__file__).parent
 config_path = script_dir.parent / "configs" / "main_alberto.yml"
 
-print(script_dir)
-print(config_path)
-
 with open( config_path , "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
+filenames = os.listdir('.')
+pathtofolder = os.path.join(folder_path, 'data')
+
 config = attributedict(config)
-pathtofolder = config.dashboard.data.cams.folder
+#pathtofolder = config.dashboard.data.cams.folder
 keptfiles = list(config.dashboard.data.cams.keptfiles)
 
 #############################################################
