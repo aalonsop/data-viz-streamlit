@@ -8,7 +8,7 @@ dashboard:
 
     cams: 
       
-      folder: /data/cams/
+      folder: data/cams/
 
       keptfiles: [ 
       cams_dust,
