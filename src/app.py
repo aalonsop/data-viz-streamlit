@@ -16,8 +16,9 @@ import yaml
 from attrdictionary import AttrDict as attributedict
 import os
 
-
-print(os.environ["CDSAPI_URL"])
+print('okoko')
+need = os.environ["CDSAPI_URL"]
+print(need)
 #############################################################
 ## Load configs parameter
 #############################################################
