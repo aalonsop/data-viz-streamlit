@@ -30,10 +30,13 @@ with open( config_path , "r") as f:
 folder_path = os.getcwd()
 pathtofolder = os.path.join(folder_path, 'data')
 
+files = os.listdir(pathtofolder)
+filenames = sorted([f for f in files if ( f.endswith('nc') ) ])
+
 config = attributedict(config)
 #pathtofolder = config.dashboard.data.cams.folder
 keptfiles = list(config.dashboard.data.cams.keptfiles)
-
+keptfiles = filenames
 #############################################################
 ## Load files
 #############################################################
