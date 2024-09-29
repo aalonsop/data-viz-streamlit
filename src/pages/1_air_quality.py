@@ -42,6 +42,7 @@ if currently == 'cloud':
     
 else:
     folder_path = os.getcwd()
+    print(folder_path)
     with open("../configs/main_alberto.yml", "r") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     
@@ -718,6 +719,7 @@ with tab2:
 
     if st.sidebar.button("Get Data"):
         with st.spinner('Downloading data...'):
+            
             c = cdsapi.Client()
             cams_dataset_name = "cams-europe-air-quality-forecasts"
             request = {
@@ -739,8 +741,8 @@ with tab2:
                 "data_format": "netcdf_zip",
                 "area": [43.25, 8.15, 41.15, 10.15]
             }
-            
             response = c.retrieve(cams_dataset_name, request).download()
+
             with st.spinner('Extracting data...'):
                 zip_file = zipfile.ZipFile(folder_path + '/' + response)
                 netcdf_files = [name for name in zip_file.namelist() if name.endswith('.nc')]
