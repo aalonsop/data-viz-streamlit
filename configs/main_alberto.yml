@@ -8,7 +8,7 @@ dashboard:
 
     cams: 
       
-      folder: data/cams/
+      folder: /Users/alonso-pinar_a/soft/data-viz-challenge-2024/data/cams/
 
       keptfiles: [ 
       cams_dust,

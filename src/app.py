@@ -21,32 +21,45 @@ import os
 ## Load configs parameter
 #############################################################
 
-script_dir = Path(__file__).parent
-config_path = script_dir.parent / "configs" / "main_alberto.yml"
+currently = 'local'
 
-with open( config_path , "r") as f:
-    config = yaml.load(f, Loader=yaml.FullLoader)
+if currently == 'cloud':
 
-folder_path = os.getcwd()
-pathtofolder = os.path.join(folder_path, 'data/')
+    folder_path = os.getcwd()
+    pathtofolder = os.path.join(folder_path, 'data/cams/')
+    
+    files = os.listdir(pathtofolder)
+    filenames = sorted([f for f in files if ( f.endswith('nc') ) ])
+    
+    ext = ''
+    
+else:
+    with open("../configs/main_alberto.yml", "r") as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+    
+    config = attributedict(config)
+    pathtofolder = config.dashboard.data.cams.folder
+    keptfiles = list(config.dashboard.data.cams.keptfiles)
+    
+    ext = '.nc'
 
-files = os.listdir(pathtofolder)
-filenames = sorted([f for f in files if ( f.endswith('nc') ) ])
+dust = pathtofolder + keptfiles[0] + ext
+pm10 = pathtofolder + keptfiles[1] + ext
+pm25 = pathtofolder + keptfiles[2] + ext
+pmwildfires = pathtofolder + keptfiles[3] + ext
 
 config = attributedict(config)
-#pathtofolder = config.dashboard.data.cams.folder
+pathtofolder = config.dashboard.data.cams.folder
 keptfiles = list(config.dashboard.data.cams.keptfiles)
-keptfiles = filenames
+
+
+
+print(dust)
 #############################################################
-## Load files
+## Load data
 #############################################################
 
-ext = ''
 
-dust = pathtofolder + keptfiles[0]
-pm10 = pathtofolder + keptfiles[1]
-pm25 = pathtofolder + keptfiles[2]
-pmwildfires = pathtofolder + keptfiles[3]
 
 # Load datasets with caching to improve performance
 @st.cache_data  # Updated from st.cache to st.cache_data as st.cache is deprecated
