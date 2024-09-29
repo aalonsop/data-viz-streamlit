@@ -41,12 +41,12 @@ keptfiles = filenames
 ## Load files
 #############################################################
 
-ext = '.nc'
+ext = ''
 
-dust = pathtofolder + keptfiles[0] + ext
-pm10 = pathtofolder + keptfiles[1] + ext
-pm25 = pathtofolder + keptfiles[2] + ext
-pmwildfires = pathtofolder + keptfiles[3] + ext
+dust = pathtofolder + keptfiles[0]
+pm10 = pathtofolder + keptfiles[1]
+pm25 = pathtofolder + keptfiles[2]
+pmwildfires = pathtofolder + keptfiles[3]
 
 # Load datasets with caching to improve performance
 @st.cache_data  # Updated from st.cache to st.cache_data as st.cache is deprecated
