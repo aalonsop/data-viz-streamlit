@@ -19,7 +19,7 @@ from attrdictionary import AttrDict as attributedict
 ## Load configs parameter
 #############################################################
 
-with open("..\configs\main_alberto.yml", "r") as f:
+with open("..configs\main_alberto.yml", "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 config = attributedict(config)
