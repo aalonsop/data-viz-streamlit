@@ -60,9 +60,6 @@ config = attributedict(config)
 pathtofolder = config.dashboard.data.cams.folder
 keptfiles = list(config.dashboard.data.cams.keptfiles)
 
-
-
-print(dust)
 #############################################################
 ## Load data
 #############################################################
