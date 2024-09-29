@@ -16,10 +16,8 @@ import yaml
 from attrdictionary import AttrDict as attributedict
 import os
 
-st.write(
-    os.environ["CDSAPI_URL"] == st.secrets["url_cams"],
-    os.environ["CDSAPI_KEY"] == st.secrets["key_cams"]
-)
+st.write(os.environ["CDSAPI_URL"] == st.secrets["url_cams"])
+st.write(os.environ["CDSAPI_KEY"] == st.secrets["key_cams"])
 
 print(os.environ["CDSAPI_URL"])
 #############################################################
