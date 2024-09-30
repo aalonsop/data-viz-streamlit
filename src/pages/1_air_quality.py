@@ -725,7 +725,7 @@ with tab2:
                 "variable": [variable_name],
                 "model": ["ensemble"],
                 "level": ["0"],
-                "date": ['2024-09-29/2024-09-29'],#[date],
+                "date": [date],
                 "type": ["forecast"],
                 "time": ["00:00"],
                 "leadtime_hour": [
