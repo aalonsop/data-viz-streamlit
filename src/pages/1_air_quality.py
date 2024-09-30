@@ -16,10 +16,8 @@ import yaml
 from attrdictionary import AttrDict as attributedict
 import os
 import zipfile
-import io
 from datetime import datetime
 import cdsapi
-import io
 
 #############################################################
 ## Load configs parameter
@@ -42,7 +40,6 @@ if currently == 'cloud':
     
 else:
     folder_path = os.getcwd()
-    print(folder_path)
     with open("../configs/main_alberto.yml", "r") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     
@@ -250,10 +247,9 @@ with tab1:
             if variable_name == 'dust' or variable_name == 'pm10' or variable_name == 'pmwildfire':
                 df_interp['AQI_Level'] = df_interp['Aerosol'].apply(map_aqi_10)
         
-                # Define color mapping
-                color_discrete_map = {
-                    level['Level']: level['Color'] for level in aqi_levels_10
-                }
+                # color_discrete_map = {
+                #     level['Level']: level['Color'] for level in aqi_levels_10
+                # }
         
                 # Create the custom discrete colorscale for colorbar
                 aqi_thresholds = [0, 50, 100, 150, 200, 300]  # Extend max to 300 for colorbar
@@ -273,10 +269,9 @@ with tab1:
             else:
                 df_interp['AQI_Level'] = df_interp['Aerosol'].apply(map_aqi_25)
         
-                # Define color mapping
-                color_discrete_map = {
-                    level['Level']: level['Color'] for level in aqi_levels_25
-                }
+                # color_discrete_map = {
+                #     level['Level']: level['Color'] for level in aqi_levels_25
+                # }
         
                 # Create the custom discrete colorscale for colorbar
                 aqi_thresholds = [0, 50, 100, 150, 200, 300]  # Extend max to 300 for colorbar
@@ -407,10 +402,9 @@ with tab1:
             if variable_name == 'dust' or variable_name == 'pm10' or variable_name == 'pmwildfire':
                 df_all['AQI_Level'] = df_all['Aerosol'].apply(map_aqi_10)
     
-                # Define color mapping
-                color_discrete_map = {
-                    level['Level']: level['Color'] for level in aqi_levels_10
-                }
+                # color_discrete_map = {
+                #     level['Level']: level['Color'] for level in aqi_levels_10
+                # }
     
                 # Create the custom discrete colorscale for colorbar
                 aqi_thresholds = [0, 40, 80, 120, 300]  # Extend max to 300 for colorbar
@@ -430,10 +424,9 @@ with tab1:
             else:
                 df_all['AQI_Level'] = df_all['Aerosol'].apply(map_aqi_25)
     
-                # Define color mapping
-                color_discrete_map = {
-                    level['Level']: level['Color'] for level in aqi_levels_25
-                }
+                # color_discrete_map = {
+                #     level['Level']: level['Color'] for level in aqi_levels_25
+                # }
     
                 # Create the custom discrete colorscale for colorbar
                 aqi_thresholds = [0, 25, 50, 100, 300]  # Extend max to 300 for colorbar
@@ -509,7 +502,7 @@ with tab1:
         with col2:
             dataset = datasets[selected_data]
             variable_name = list(dataset.keys())[0]
-            print(mode)
+
             if variable_name =='dust' or variable_name == 'pm10' or variable_name == 'pmwildfire':
                 if mode == "AQI Data":
                     st.header("AQI Levels")
@@ -569,9 +562,17 @@ with tab2:
         "2.5PM Particles": "pm2.5_total_organic_matter",
         "PM from wildfires": "pm10_wildfires"
     }
+    
+    subvariable_options_dico = {
+        "pm2.5_total_organic_matter":"pm2p5_total_om_conc",
+        "dust":"dust",
+        "particulate_matter_10um":"pm10_conc",
+        "pm10_wildfires":"pmwf_conc"
+        }
 
     # Define variable_name before the button
     variable_name = variable_options_dico[selected_variable]
+    variable_in_dataset = subvariable_options_dico[variable_name]
 
     date = datetime.today().strftime('%Y-%m-%d') + "/" + datetime.today().strftime('%Y-%m-%d')
 
@@ -585,10 +586,10 @@ with tab2:
         selected_hours = pd.to_timedelta( selected_hour, 'h' )
         selected_time = times[times == selected_hours]
         variable_name = list(dataset.keys())[0]
-    
-        units = dataset[variable_name].attrs.get('units', '')
+
+        units = dataset[variable_in_dataset].attrs.get('units', '')
         data = dataset.sel(time=selected_time)
-        aerosol = data[variable_name]
+        aerosol = data[variable_in_dataset]
         latitudes = data.latitude.values
         longitudes = data.longitude.values
 
@@ -618,7 +619,7 @@ with tab2:
                 mapbox_style='open-street-map',
                 zoom=7,
                 center={"lat": 42.16, "lon": 9.13},
-                title=f"{variable_name.capitalize()} forecast in the next {selected_hour}",
+                title=f"{variable_name.capitalize()} forecast in the next {selected_hour} hours",
                 opacity=0.2,
                 height=800,
                 width=800,
@@ -640,10 +641,9 @@ with tab2:
             if variable_name == 'dust' or variable_name == 'pm10' or variable_name == 'pmwildfire':
                 df_interp['AQI_Level'] = df_interp['Aerosol'].apply(map_aqi_10)
         
-                # Define color mapping
-                color_discrete_map = {
-                    level['Level']: level['Color'] for level in aqi_levels_10
-                }
+                # color_discrete_map = {
+                #     level['Level']: level['Color'] for level in aqi_levels_10
+                # }
         
                 # Create the custom discrete colorscale for colorbar
                 aqi_thresholds = [0, 50, 100, 150, 200, 300]  # Extend max to 300 for colorbar
@@ -663,10 +663,9 @@ with tab2:
             else:
                 df_interp['AQI_Level'] = df_interp['Aerosol'].apply(map_aqi_25)
         
-                # Define color mapping
-                color_discrete_map = {
-                    level['Level']: level['Color'] for level in aqi_levels_25
-                }
+                # color_discrete_map = {
+                #     level['Level']: level['Color'] for level in aqi_levels_25
+                # }
         
                 # Create the custom discrete colorscale for colorbar
                 aqi_thresholds = [0, 50, 100, 150, 200, 300]  # Extend max to 300 for colorbar
@@ -695,7 +694,7 @@ with tab2:
                 mapbox_style='open-street-map',
                 zoom=7,
                 center={"lat": 42.16, "lon": 9.13},
-                title=f"{variable_name.capitalize()} AQI forecast in the next {selected_hour}",
+                title=f"{variable_name.capitalize()} AQI forecast in the next {selected_hour} hours",
                 opacity=0.2,
                 height=800,
                 width=800,
@@ -726,7 +725,7 @@ with tab2:
                 "variable": [variable_name],
                 "model": ["ensemble"],
                 "level": ["0"],
-                "date": [date],
+                "date": ['2024-09-29/2024-09-29'],#[date],
                 "type": ["forecast"],
                 "time": ["00:00"],
                 "leadtime_hour": [
@@ -779,42 +778,68 @@ with tab2:
         selected_hour = st.sidebar.selectbox('Select hour:', hours_options, index=0)
 
         # Generate and display the map
-        fig = generate_map(selected_data, selected_hour, mode)
-
-        # Layout with two columns: map and AQI legend
-        if fig:
-            col1, col2 = st.columns([3, 1])
-
-            with col1:
-                st.plotly_chart(fig, use_container_width=True)
-
-            with col2:
-                if variable_name in ['dust', 'pm10', 'pmwildfire']:
-                    if mode == "AQI data":
-                        st.header("AQI Levels")
-                        aqi_legend_md = ""
-                        for level in aqi_levels_10:
-                            aqi_legend_md += f"**{level['Level']}**:\n\n"
-                            aqi_legend_md += f"{level['Color_name']} ({level['Range']})\n\n"
-                        st.markdown(aqi_legend_md)
+        if variable_in_dataset in list(selected_data.keys()):
+            fig = generate_map(selected_data, selected_hour, mode)
+    
+            # Layout with two columns: map and AQI legend
+            if fig:
+                
+                col1, col2 = st.columns([3, 1])
+                l1 = st.columns(1)
+    
+                with col1:
+                    st.plotly_chart(fig, use_container_width=True)
+    
+                with col2:
+                    if variable_name in ['dust', 'pm10', 'pmwildfire']:
+                        if mode == "AQI data":
+                            st.header("AQI Levels")
+                            aqi_legend_md = ""
+                            for level in aqi_levels_10:
+                                aqi_legend_md += f"**{level['Level']}**:\n\n"
+                                aqi_legend_md += f"{level['Color_name']} ({level['Range']})\n\n"
+                            st.markdown(aqi_legend_md)
+                        else:
+                            st.header("Raw data view")
+                            st.markdown("""
+                                This view displays the raw aerosol concentration data without categorization into AQI levels.
+                            """)
                     else:
-                        st.header("Raw data view")
-                        st.markdown("""
-                            This view displays the raw aerosol concentration data without categorization into AQI levels.
-                        """)
-                else:
-                    if mode == "AQI data":
-                        st.header("AQI Levels")
-                        aqi_legend_md = ""
-                        for level in aqi_levels_25:
-                            aqi_legend_md += f"**{level['Level']}**:\n\n"
-                            aqi_legend_md += f"{level['Color_name']} ({level['Range']})\n\n"
-                        st.markdown(aqi_legend_md)
+                        if mode == "AQI data":
+                            st.header("AQI Levels")
+                            aqi_legend_md = ""
+                            for level in aqi_levels_25:
+                                aqi_legend_md += f"**{level['Level']}**:\n\n"
+                                aqi_legend_md += f"{level['Color_name']} ({level['Range']})\n\n"
+                            st.markdown(aqi_legend_md)
+                        else:
+                            st.header("Raw data view")
+                            st.markdown("""
+                                This view displays the raw aerosol concentration data without categorization into AQI levels.
+                            """)
+                with l1[0]:
+                    forecast_max = []
+                    forecast_interpretation = []
+                    times = []
+                    if variable_name in ['dust', 'pm10', 'pmwildfire']:
+                        for elt_time in selected_data.time:
+                            converted_time = int(pd.to_timedelta(elt_time.values).total_seconds()/(60*60))
+                            times.append( converted_time )
+                            fmax = float(selected_data[variable_in_dataset].sel(time=elt_time).max().values)
+                            forecast_max.append( fmax )
+                            forecast_interpretation = map_aqi_10(fmax)
+                            st.markdown(f"La qualité de l'air en Corse est prévue : **{forecast_interpretation}** dans {converted_time} heures. \n\n")
+    
                     else:
-                        st.header("Raw data view")
-                        st.markdown("""
-                            This view displays the raw aerosol concentration data without categorization into AQI levels.
-                        """)
+                        for elt_time in selected_data.time:
+                            converted_time = int(pd.to_timedelta(elt_time.values).total_seconds()/(60*60))
+                            times.append( converted_time )
+                            fmax = float(selected_data[variable_in_dataset].sel(time=elt_time).max().values)
+                            forecast_max.append( fmax )
+                            forecast_interpretation = map_aqi_25(fmax)
+                            st.markdown(f"La qualité de l'air en Corse est prévue : **{forecast_interpretation}** dans {converted_time} heures. \n\n")
+        else:
+            st.write("Please click on 'Get Data' to load data.")
     else:
         st.write("Please click on 'Get Data' to load data.")
 
